@@ -37,6 +37,7 @@ const deletePost = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 const updatePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -51,4 +52,41 @@ const updatePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getPost, deletePost, updatePost };
+// like or dislike a post
+const likePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post.likes.includes(req.body.userId)) {
+      await post.updateOne({ $push: { likes: req.body.userId } });
+      res.status(200).json("The post has been liked");
+    } else {
+      await post.updateOne({ $pull: { likes: req.body.userId } });
+      res.status(200).json("The post has been disliked");
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getTimelinePost = async (req, res) => {
+  try {
+    const currentUser = await Users.findById(req.body.userId);
+    const userPosts = await Post.find({ userId: currentUser._id });
+    const friendsPost = await Promise.all(
+      currentUser.followings.map((friendId) => {
+        return Post.find({ userId: friendId });
+      })
+    );
+    res.status(200).json(userPosts.concat(...friendsPost));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+module.exports = {
+  createPost,
+  getPost,
+  deletePost,
+  updatePost,
+  likePost,
+  getTimelinePost,
+};
