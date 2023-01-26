@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 // routers
 app.use("/auth", require("./routes/auth"));
 app.use("/user", require("./routes/user"));
+app.use("/post", require("./routes/post"));
 
 // errorMiddleware
 app.use(errorHandler);
