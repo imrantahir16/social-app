@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  position: stick;
+  top: 0;
+  background-color: rgb(24, 119, 242);
+  padding-inline: 2rem;
+}
+
+.left {
+  flex: 3;
+}
+
+.logo {
+  font-size: 2rem;
+  margin-left: 20px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.center {
+  flex: 5;
+}
+
+.searchBar {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  height: 30px;
+  border-radius: 30px;
+  align-items: center;
+}
+.searchIcon {
+  font-size: 20px !important;
+  margin-left: 10px;
+}
+
+.input {
+  width: 70%;
+  border: none;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.right {
+  flex: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgb(255, 255, 255);
+}
+
+.link {
+  margin-left: 10px;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+.icons {
+  display: flex;
+  gap: 15px;
+}
+
+.icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.iconBadge {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(247, 75, 75);
+  border-radius: 50%;
+  color: white;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.profile {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 50%;
+}
