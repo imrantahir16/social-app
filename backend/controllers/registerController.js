@@ -6,7 +6,7 @@ const registerUser = async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
   const { username, email, password } = req.body;
-  console.log(username, email, password);
+  // console.log(username, email, password);
   const userExists = await User.findOne({ username }).exec();
 
   userExists && res.status(409).json({ message: "User already exists" });
