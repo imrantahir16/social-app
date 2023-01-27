@@ -1,0 +1,74 @@
+.container {
+  height: 170px;
+}
+
+.wrapper {
+  padding: 10px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+}
+
+.profileImage {
+  width: 50px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 10px;
+}
+
+.input {
+  margin: 20px;
+  border: none;
+  width: 100%;
+  resize: none;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.hr {
+  margin: 20px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.options {
+  display: flex;
+  margin-inline-start: 20px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.optionText {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.button {
+  border: none;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: green;
+  margin-inline-end: 20px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+}

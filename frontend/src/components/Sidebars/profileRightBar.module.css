@@ -1,0 +1,43 @@
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.userInfo {
+  margin-bottom: 30px;
+}
+
+.info {
+  margin-bottom: 10px;
+}
+
+.infoKey {
+  font-weight: 500;
+  margin-right: 15px;
+  color: rgb(85, 85, 85);
+}
+
+.infoValue {
+  font-weight: 300;
+}
+
+.followings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.following {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.followingImg {
+  width: 100px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 5px;
+}

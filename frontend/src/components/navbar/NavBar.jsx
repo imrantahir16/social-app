@@ -1,5 +1,5 @@
 import { Chat, Notifications, Search, Person } from "@mui/icons-material";
-import styles from "./NavBar.module.css";
+import styles from "./navBar.module.css";
 
 const NavBar = () => {
   return (
