@@ -1,5 +1,6 @@
 const User = require("../model/Users");
 const bcrypt = require("bcrypt");
+const Users = require("../model/Users");
 
 const getUser = async (req, res) => {
   !req.params.id && res.status(400).json({ message: "User ID is required" });
@@ -59,6 +60,22 @@ const updateUser = async (req, res) => {
   }
 };
 
+const getFriends = async (req, res) => {
+  try {
+    const user = await Users.findById(req.params.userId);
+    const friends = await Promise.all(
+      user.followings.map((friendsId) => User.findById(friendsId))
+    );
+    let friendList = [];
+    friends.map((friend) => {
+      const { _id, username, profilePicture } = friend;
+      friendList.push({ _id, username, profilePicture });
+    });
+    res.status(200).json(friendList);
+  } catch (error) {
+    res.stauts(500).json({ error: error.message });
+  }
+};
 const followUser = async (req, res) => {
   if (req.body.userId !== req.params.id) {
     try {
@@ -99,4 +116,11 @@ const unfollowUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, deleteUser, updateUser, followUser, unfollowUser };
+module.exports = {
+  getUser,
+  deleteUser,
+  updateUser,
+  followUser,
+  unfollowUser,
+  getFriends,
+};

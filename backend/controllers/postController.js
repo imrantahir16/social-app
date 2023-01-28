@@ -1,4 +1,5 @@
 const Post = require("../model/Post");
+const Users = require("../model/Users");
 
 const createPost = async (req, res) => {
   const newPost = new Post(req.body);
@@ -82,6 +83,15 @@ const getTimelinePost = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+const getUserPosts = async (req, res) => {
+  try {
+    const user = await Users.findOne({ username: req.params.username });
+    const post = await Post.findById({ userId: user._id });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 module.exports = {
   createPost,
   getPost,
@@ -89,4 +99,5 @@ module.exports = {
   updatePost,
   likePost,
   getTimelinePost,
+  getUserPosts,
 };
