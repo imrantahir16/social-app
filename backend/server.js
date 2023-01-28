@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const cors = require("cors");
+const corsOption = require("./config/corsOption");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const multer = require("multer");
@@ -14,6 +16,8 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 connectDB();
 
+// cors
+app.use(cors(corsOption));
 // static file
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
@@ -39,6 +43,7 @@ const upload = multer({ storage });
 app.use("/auth", require("./routes/auth"));
 app.use("/user", require("./routes/user"));
 app.use("/post", require("./routes/post"));
+
 app.use("/upload", upload.single("file"), (req, res) => {
   try {
     res.status(200).json("File upload successful");

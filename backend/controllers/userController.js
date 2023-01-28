@@ -3,15 +3,19 @@ const bcrypt = require("bcrypt");
 const Users = require("../model/Users");
 
 const getUser = async (req, res) => {
-  !req.params.id && res.status(400).json({ message: "User ID is required" });
+  // !req.query.userId && res.status(400).json({ message: "User ID is required" });
+  const userId = req.query.userId;
+  const username = req.query.username;
 
   try {
-    const user = await User.findOne({ _id: req.params.id }).exec();
+    const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({ username: username });
     // console.log(user);
     if (!user) {
       return res
         .status(400)
-        .json({ message: `User with an ID of ${req.params.id} not found` });
+        .json({ message: `User with an ID of ${userId} not found` });
     }
     const { password, updatedAt, ...others } = user?._doc;
     res.status(200).json(others);

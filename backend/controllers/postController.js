@@ -71,7 +71,8 @@ const likePost = async (req, res) => {
 
 const getTimelinePost = async (req, res) => {
   try {
-    const currentUser = await Users.findById(req.body.userId);
+    const currentUser = await Users.findById(req.params.userId);
+    console.log(currentUser);
     const userPosts = await Post.find({ userId: currentUser._id });
     const friendsPost = await Promise.all(
       currentUser.followings.map((friendId) => {

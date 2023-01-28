@@ -2,15 +2,13 @@ const User = require("../model/Users");
 const bcrypt = require("bcrypt");
 
 const loginUser = async (req, res) => {
-  if (!req.body.username || !req.body.password) {
-    return res
-      .status(400)
-      .json({ message: "Username and password are required" });
+  if (!req.body.email || !req.body.password) {
+    return res.status(400).json({ message: "email and password are required" });
   }
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const foundUser = await User.findOne({ username }).exec();
+    const foundUser = await User.findOne({ email }).exec();
     !foundUser && res.status(404).json({ message: "User not found" });
 
     const match = await bcrypt.compare(password, foundUser.password);

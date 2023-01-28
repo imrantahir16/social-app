@@ -8,7 +8,7 @@ const {
   getFriends,
 } = require("../controllers/userController");
 
-router.get("/:id", getUser);
+router.get("/", getUser);
 router.put("/:id", updateUser);
 router.delete("/:id", deleteUser);
 router.put("/:id/follow", followUser);

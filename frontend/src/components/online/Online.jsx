@@ -5,7 +5,7 @@ const Online = ({ user }) => {
       <div className={styles.profileImgContainer}>
         <img
           className={styles.profile}
-          src={user.profilePicture}
+          src={`assets/${user.profilePicture}`}
           alt={`${user.username}'s profile`}
         />
         <span className={user.online ? styles.online : styles.offline} />

@@ -1,52 +1,52 @@
 export const Users = [
   {
     id: 1,
-    profilePicture: "assets/profiles/1.jpg",
+    profilePicture: "profiles/1.jpg",
     username: "John Doe",
   },
   {
     id: 2,
-    profilePicture: "assets/profiles/2.jpg",
+    profilePicture: "profiles/2.jpg",
     username: "Ponnappa Priya",
   },
   {
     id: 3,
-    profilePicture: "assets/profiles/3.jpg",
+    profilePicture: "profiles/3.jpg",
     username: "Ang Li",
   },
   {
     id: 4,
-    profilePicture: "assets/profiles/4.jpg",
+    profilePicture: "profiles/4.jpg",
     username: "Trevor Virtue",
   },
   {
     id: 5,
-    profilePicture: "assets/profiles/5.jpg",
+    profilePicture: "profiles/5.jpg",
     username: "Verona Blair",
   },
   {
     id: 6,
-    profilePicture: "assets/profiles/6.jpg",
+    profilePicture: "profiles/6.jpg",
     username: "Jane Meldrum",
   },
   {
     id: 7,
-    profilePicture: "assets/profiles/7.jpg",
+    profilePicture: "profiles/7.jpg",
     username: "Desiree Burch",
   },
   {
     id: 8,
-    profilePicture: "assets/profiles/8.jpg",
+    profilePicture: "profiles/8.jpg",
     username: "Andrew Kazantzis",
   },
   {
     id: 9,
-    profilePicture: "assets/profiles/9.jpg",
+    profilePicture: "profiles/9.jpg",
     username: "Daly Harry",
   },
   {
     id: 10,
-    profilePicture: "assets/profiles/10.jpg",
+    profilePicture: "profiles/10.jpg",
     username: "Ruveni Ellawala",
   },
 ];
@@ -55,7 +55,7 @@ export const Posts = [
   {
     id: 1,
     desc: "I never knew what hardship looked like until it started raining bowling balls.",
-    photo: "assets/post/1.jpg",
+    photo: "post/1.jpg",
     date: "5 mins ago",
     userId: 1,
     like: 32,
@@ -64,7 +64,7 @@ export const Posts = [
   {
     id: 2,
     desc: "Mary realized if her calculator had a history, it would be more embarrassing than her computer browser history.",
-    photo: "assets/post/2.jpg",
+    photo: "post/2.jpg",
     date: "15 mins ago",
     userId: 2,
     like: 20,
@@ -73,7 +73,7 @@ export const Posts = [
   {
     id: 3,
     desc: "The golden retriever loved the fireworks each Fourth of July.",
-    photo: "assets/post/3.jpg",
+    photo: "post/3.jpg",
     date: "55 mins ago",
     userId: 3,
     like: 54,
@@ -82,7 +82,7 @@ export const Posts = [
   {
     id: 4,
     desc: "I liked their first two albums but changed my mind after that charity gig.",
-    photo: "assets/post/4.jpg",
+    photo: "post/4.jpg",
     date: "5 hours ago",
     userId: 4,
     like: 41,
@@ -91,7 +91,7 @@ export const Posts = [
   {
     id: 5,
     desc: "When money was tight, he'd get his lunch money from the local wishing well.",
-    photo: "assets/post/5.jpg",
+    photo: "post/5.jpg",
     date: "9 hours ago",
     userId: 5,
     like: 320,
@@ -100,7 +100,7 @@ export const Posts = [
   {
     id: 6,
     desc: "The light that burns twice as bright burns half as long.",
-    photo: "assets/post/6.jpg",
+    photo: "post/6.jpg",
     date: "1 day ago",
     userId: 6,
     like: 302,
@@ -109,7 +109,7 @@ export const Posts = [
   {
     id: 7,
     desc: "Don't put peanut butter on the dog's nose.",
-    photo: "assets/post/7.jpg",
+    photo: "post/7.jpg",
     date: "2 days ago",
     userId: 7,
     like: 12,
@@ -118,7 +118,7 @@ export const Posts = [
   {
     id: 8,
     desc: "He had accidentally hacked into his company's server.",
-    photo: "assets/post/8.jpg",
+    photo: "post/8.jpg",
     date: "3 days ago",
     userId: 8,
     like: 192,
@@ -127,7 +127,7 @@ export const Posts = [
   {
     id: 9,
     desc: "He realized there had been several deaths on this road, but his concern rose when he saw the exact number.",
-    photo: "assets/post/9.jpg",
+    photo: "post/9.jpg",
     date: "4 days ago",
     userId: 9,
     like: 116,
@@ -136,7 +136,7 @@ export const Posts = [
   {
     id: 10,
     desc: "Nobody questions who built the pyramids in Mexico.",
-    photo: "assets/post/10.jpg",
+    photo: "post/10.jpg",
     date: "1 week ago",
     userId: 10,
     like: 512,

@@ -1,7 +1,12 @@
 import { Chat, Notifications, Search, Person } from "@mui/icons-material";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 import styles from "./navBar.module.css";
+import { AuthContext } from "../../context/AuthContext";
 
 const NavBar = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -39,7 +44,13 @@ const NavBar = () => {
             <span className={styles.iconBadge}>1</span>
           </div>
         </div>
-        <img src={"/assets/profiles/1.jpg"} alt="" className={styles.profile} />
+        <Link to={`/profile/${user.username}`}>
+          <img
+            src={`assets/${user.profilePicture}`}
+            alt=""
+            className={styles.profile}
+          />
+        </Link>
       </div>
     </div>
   );

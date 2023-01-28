@@ -1,7 +1,33 @@
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import axios from "../../api/axios";
 import styles from "./register.module.css";
+
 const Register = () => {
+  const username = useRef();
+  const email = useRef();
+  const password = useRef();
+  const confirmPassword = useRef();
+  const navigate = useNavigate();
+
+  const registerHandler = async (e) => {
+    e.preventDefault();
+    if (password.current.value !== confirmPassword.current.value) {
+      confirmPassword.current.setCustomValidity("Password don't match!");
+    }
+    const user = {
+      username: username.current.value,
+      email: email.current.value,
+      password: password.current.value,
+      confirmPassword: confirmPassword.current.value,
+    };
+    try {
+      await axios.post("/auth/register", user);
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -12,30 +38,34 @@ const Register = () => {
           </span>
         </div>
         <div className={styles.right}>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={registerHandler}>
             <input
               type="text"
               required
               className={styles.input}
               placeholder="username"
+              ref={username}
             />
             <input
               type="email"
               required
               className={styles.input}
               placeholder="example@gmail.com"
+              ref={email}
             />
             <input
               required
               type="password"
               className={styles.input}
               placeholder="password"
+              ref={password}
             />
             <input
               type="password"
               required
               className={styles.input}
-              placeholder="password"
+              placeholder="confirm password"
+              ref={confirmPassword}
             />
             <button className={styles.button} type="submit">
               Sign Up
