@@ -72,12 +72,12 @@ const getFriends = async (req, res) => {
     );
     let friendList = [];
     friends.map((friend) => {
-      const { _id, username, profilePicture } = friend;
-      friendList.push({ _id, username, profilePicture });
+      const { _id, username, profilePicture, online } = friend;
+      friendList.push({ _id, username, profilePicture, online });
     });
     res.status(200).json(friendList);
   } catch (error) {
-    res.stauts(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 const followUser = async (req, res) => {

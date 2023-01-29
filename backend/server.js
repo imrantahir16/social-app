@@ -41,8 +41,8 @@ const upload = multer({ storage });
 
 // routers
 app.use("/auth", require("./routes/auth"));
-app.use("/user", require("./routes/user"));
 app.use("/post", require("./routes/post"));
+app.use("/user", require("./routes/user"));
 
 app.use("/upload", upload.single("file"), (req, res) => {
   try {

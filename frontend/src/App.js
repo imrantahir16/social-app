@@ -21,6 +21,7 @@ function App() {
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/register" element={<Register />} />
+        <Route path="*" element={<p>404 page</p>} />
       </Routes>
     </Router>
   );

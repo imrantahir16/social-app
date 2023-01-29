@@ -28,6 +28,10 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
+    online: {
+      type: Boolean,
+      default: false,
+    },
     followers: {
       type: Array,
       default: [],

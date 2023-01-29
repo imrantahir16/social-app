@@ -30,7 +30,7 @@ const AuthReducer = (state, action) => {
         },
       };
     }
-    case "LOGIN_START": {
+    case "UNFOLLOW": {
       return {
         ...state,
         user: {

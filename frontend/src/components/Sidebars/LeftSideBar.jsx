@@ -9,11 +9,32 @@ import {
   School,
   WorkOutline,
 } from "@mui/icons-material";
-import { Users } from "../../utils/DummyData";
+import { useContext, useEffect, useState } from "react";
+import axios from "../../api/axios";
+import { AuthContext } from "../../context/AuthContext";
 import ClosedFriends from "../closedFriends/ClosedFriends";
 import styles from "./leftSideBar.module.css";
 
 const LeftSideBar = () => {
+  const { user } = useContext(AuthContext);
+
+  const [friends, setFriends] = useState([]);
+
+  useEffect(() => {
+    // console.log(user);
+    const getFriends = async () => {
+      try {
+        const friendList = await axios.get("/user/friend/" + user._id);
+        // console.log("leftsidebar friendlist");
+        // console.log(friendList.data);
+        setFriends(friendList.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFriends();
+  }, [user._id]);
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -58,9 +79,13 @@ const LeftSideBar = () => {
         <button className={styles.button}>Show more</button>
         <hr className={styles.hr} />
         <ul className={styles.friendsList}>
-          {Users.map((user) => (
-            <ClosedFriends key={user.id} user={user} />
-          ))}
+          {friends.length ? (
+            friends.map((friend) => (
+              <ClosedFriends key={friend._id} friend={friend} />
+            ))
+          ) : (
+            <p>No friends</p>
+          )}
         </ul>
       </div>
     </div>

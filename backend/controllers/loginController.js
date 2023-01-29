@@ -13,7 +13,7 @@ const loginUser = async (req, res) => {
 
     const match = await bcrypt.compare(password, foundUser.password);
     !match && res.status(400).json("Incorrect password");
-
+    foundUser.online = true;
     res.status(200).json(foundUser);
   } catch (error) {
     res.status(500).json({ error: error.message });

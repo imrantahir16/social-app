@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import axios from "../../api/axios";
 import Post from "../posts/Post";
 import Share from "../share/Share";
@@ -7,27 +7,37 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Feed = ({ username }) => {
   const [posts, setPosts] = useState([]);
+  const postRef = useRef(false);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log("render");
-    const fetchPosts = async () => {
-      try {
-        const res = username
-          ? await axios.get(`post/profile/${username}`)
-          : await axios.get(`post/timeline/${user._id}`);
-        console.log(res.data);
-        setPosts(
-          res.data.sort((post1, post2) => {
-            return new Date(post2.createdAt) - new Date(post1.createdAt);
-          })
-        );
-      } catch (error) {
-        console.log(error);
-      }
+    // console.log("render");
+    if (postRef.current === true) {
+      const fetchPosts = async () => {
+        try {
+          console.log("feed");
+          console.log(username);
+          console.log(user);
+          const res = username
+            ? await axios.get(`post/profile/${username}`)
+            : await axios.get(`post/timeline/${user._id}`);
+          console.log(res.data);
+          setPosts(
+            res.data.sort((post1, post2) => {
+              return new Date(post2.createdAt) - new Date(post1.createdAt);
+            })
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchPosts();
+    }
+
+    return () => {
+      postRef.current = true;
     };
-    fetchPosts();
-  }, []);
+  }, [user, username]);
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>

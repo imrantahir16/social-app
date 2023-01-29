@@ -26,7 +26,7 @@ const Share = () => {
     if (file) {
       const data = new FormData();
       const fileName = Date.now() + file.name;
-      data.append("name", fileName);
+      data.append("name", `post/${fileName}`);
       data.append("file", file);
       newPost.image = fileName;
       console.log(newPost);
@@ -36,12 +36,13 @@ const Share = () => {
         console.log(error);
       }
     }
-    try {
-      await axios.post("/post", newPost);
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
+    if (newPost.description || newPost.image)
+      try {
+        await axios.post("/post", newPost);
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
   };
 
   return (
@@ -50,7 +51,11 @@ const Share = () => {
         <div className={styles.top}>
           <img
             className={styles.profileImage}
-            src={`assets/${user.profilePicture}`}
+            src={
+              user.profilePicture
+                ? `${PF}profiles/${user.profilePicture}`
+                : `${PF}profiles/noAvatar.png`
+            }
             alt=""
           />
           <textarea

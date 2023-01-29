@@ -1,52 +1,52 @@
 export const Users = [
   {
     id: 1,
-    profilePicture: "profiles/1.jpg",
+    profilePicture: "1.jpg",
     username: "John Doe",
   },
   {
     id: 2,
-    profilePicture: "profiles/2.jpg",
+    profilePicture: "2.jpg",
     username: "Ponnappa Priya",
   },
   {
     id: 3,
-    profilePicture: "profiles/3.jpg",
+    profilePicture: "3.jpg",
     username: "Ang Li",
   },
   {
     id: 4,
-    profilePicture: "profiles/4.jpg",
+    profilePicture: "4.jpg",
     username: "Trevor Virtue",
   },
   {
     id: 5,
-    profilePicture: "profiles/5.jpg",
+    profilePicture: "5.jpg",
     username: "Verona Blair",
   },
   {
     id: 6,
-    profilePicture: "profiles/6.jpg",
+    profilePicture: "6.jpg",
     username: "Jane Meldrum",
   },
   {
     id: 7,
-    profilePicture: "profiles/7.jpg",
+    profilePicture: "7.jpg",
     username: "Desiree Burch",
   },
   {
     id: 8,
-    profilePicture: "profiles/8.jpg",
+    profilePicture: "8.jpg",
     username: "Andrew Kazantzis",
   },
   {
     id: 9,
-    profilePicture: "profiles/9.jpg",
+    profilePicture: "9.jpg",
     username: "Daly Harry",
   },
   {
     id: 10,
-    profilePicture: "profiles/10.jpg",
+    profilePicture: "10.jpg",
     username: "Ruveni Ellawala",
   },
 ];

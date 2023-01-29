@@ -1,12 +1,22 @@
 import { Chat, Notifications, Search, Person } from "@mui/icons-material";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import styles from "./navBar.module.css";
 import { AuthContext } from "../../context/AuthContext";
 
 const NavBar = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const logoutHandler = () => {
+    localStorage.setItem("user", "");
+    if (localStorage.getItem("user") === "") {
+      redirect("/login");
+      window.location.reload();
+    }
+  };
+
+  // console.log(user);
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -46,11 +56,16 @@ const NavBar = () => {
         </div>
         <Link to={`/profile/${user.username}`}>
           <img
-            src={`assets/${user.profilePicture}`}
+            src={
+              user.profilePicture
+                ? `${PF}profiles/${user.profilePicture}`
+                : `${PF}profiles/noAvatar.png`
+            }
             alt=""
             className={styles.profile}
           />
         </Link>
+        <button onClick={logoutHandler}>Log out</button>
       </div>
     </div>
   );

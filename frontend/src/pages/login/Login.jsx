@@ -10,13 +10,13 @@ const Login = () => {
   const password = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
     const userCredentials = {
       email: email.current.value,
       password: password.current.value,
     };
-    loginCall(userCredentials, dispatch);
+    await loginCall(userCredentials, dispatch);
   };
 
   return (
@@ -49,11 +49,10 @@ const Login = () => {
               type="submit"
               disabled={isFetching}
             >
-              {isFetching ? (
-                <CircularProgress color="" size="20px" />
-              ) : (
-                "Log In"
-              )}
+              {isFetching
+                ? // <CircularProgress color="" size="20px" />
+                  "Loading..."
+                : "Log In"}
             </button>
             <div className={styles.links}>
               <Link className={styles.link} to="/register">
