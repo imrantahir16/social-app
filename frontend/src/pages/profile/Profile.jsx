@@ -6,41 +6,58 @@ import LeftSideBar from "../../components/Sidebars/LeftSideBar";
 import Feed from "../../components/feed/Feed";
 import RightSideBar from "../../components/Sidebars/RightSideBar";
 import { useParams } from "react-router";
+import Post from "../../components/posts/Post";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import Share from "../../components/share/Share";
 
 const Profile = () => {
   const [user, setUser] = useState({});
-  const userRef = useRef(false);
+  const [posts, setPosts] = useState([]);
+  const postRef = useRef(false);
   const username = useParams().username;
+  const { user: currentUser } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
-    console.log("Profile comp");
-    console.log(username);
-    // if (useRef.current === true) {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(`/user/?username=${username}`);
-
-        console.log("Getting user");
-        console.log(res.data);
+        // console.log("username");
+        // console.log(res.data);
         setUser(res.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchUsers();
-
-    // return () => {
-    //   userRef.current = true;
-    // };
   }, [username]);
 
   useEffect(() => {
-    // if (userRef.current === true) {
-    console.log("user in profile");
-    console.log(user);
-    // }
-  }, [user]);
+    if (postRef.current === true) {
+      const fetchPosts = async () => {
+        try {
+          // console.log("feed");
+          // console.log(username);
+          const res = await axios.get(`post/profile/${username}`);
+          // console.log("post by username");
+          // console.log(res.data);
+          setPosts(
+            res.data.sort((post1, post2) => {
+              return new Date(post2.createdAt) - new Date(post1.createdAt);
+            })
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchPosts();
+    }
+
+    return () => {
+      postRef.current = true;
+    };
+  }, [username]);
 
   return (
     <>
@@ -75,7 +92,15 @@ const Profile = () => {
             </div>
           </>
           <div className={styles.rightBottom}>
-            <Feed username={username} />
+            {/* <Feed username={username} /> */}
+            <div className={styles.container}>
+              <div className={styles.wrapper}>
+                {currentUser.username === user.username && <Share />}
+                {posts.map((post) => (
+                  <Post key={post._id} post={post} />
+                ))}
+              </div>
+            </div>
             <RightSideBar user={user} />
           </div>
         </div>

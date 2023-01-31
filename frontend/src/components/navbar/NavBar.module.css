@@ -15,7 +15,7 @@
 
 .logo {
   font-size: 2rem;
-  margin-left: 20px;
+  margin-inline: 10px;
   font-weight: bold;
   color: rgb(255, 255, 255);
   cursor: pointer;

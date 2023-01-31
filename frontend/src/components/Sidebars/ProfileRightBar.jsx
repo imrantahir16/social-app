@@ -5,49 +5,37 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
-const ProfileRightBar = ({ otherUser }) => {
+const ProfileRightBar = ({ user }) => {
   const [friends, setFriends] = useState([]);
   const friendRef = useRef(false);
   const { user: currentUser, dispatch } = useContext(AuthContext);
-  console.log("profile right side bar currentuser");
-  console.log(currentUser);
-  console.log("profile right side bar otherUser");
-  console.log(otherUser);
   const [followed, setFollowed] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const followHandler = async () => {
     try {
       if (followed) {
-        await axios.put(`/user/${otherUser._id}/unfollow`, {
+        await axios.put(`/user/${user._id}/unfollow`, {
           userId: currentUser._id,
         });
-        dispatch({ type: "UNFOLLOW", payload: otherUser._id });
+        dispatch({ type: "UNFOLLOW", payload: user._id });
       } else {
-        await axios.put(`user/${otherUser._id}/follow`, {
+        await axios.put(`user/${user._id}/follow`, {
           userId: currentUser._id,
         });
-        dispatch({ type: "FOLLOW", payload: otherUser._id });
+        dispatch({ type: "FOLLOW", payload: user._id });
       }
-      setFollowed(!followed);
+      setFollowed((prev) => !prev);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    console.log(followed ? "following" : "not following");
-    console.log(currentUser.followings.includes(otherUser._id));
-    setFollowed(currentUser.followings.includes(otherUser._id));
-  }, [followed, otherUser, currentUser.followings]);
-
-  useEffect(() => {
     if (friendRef.current === true) {
       const getFriends = async () => {
         try {
-          const friendList = await axios.get("/user/friend/" + otherUser._id);
-          console.log("profileRightBar friends list");
-          console.log(friendList.data);
+          const friendList = await axios.get("/user/friend/" + user?._id);
           setFriends(friendList.data);
         } catch (error) {
           console.log(error);
@@ -55,14 +43,20 @@ const ProfileRightBar = ({ otherUser }) => {
       };
       getFriends();
     }
-
     return () => {
       friendRef.current = true;
     };
-  }, [otherUser]);
+  }, [user]);
+
+  useEffect(() => {
+    // console.log("current user followings");
+    // console.log(currentUser.followings.includes(user?._id));
+    setFollowed(currentUser.followings.includes(user?._id));
+  }, [currentUser, user]);
+
   return (
     <>
-      {otherUser._id !== currentUser._id && (
+      {user._id !== currentUser._id && (
         <button className={styles.followButton} onClick={followHandler}>
           {followed ? "Unfollow" : "Follow"}
         </button>
@@ -72,15 +66,15 @@ const ProfileRightBar = ({ otherUser }) => {
       <div className={styles.userInfo}>
         <div className={styles.info}>
           <span className={styles.infoKey}>City:</span>
-          <span className={styles.infoValue}>{otherUser.city}</span>
+          <span className={styles.infoValue}>{user.city}</span>
         </div>
         <div className={styles.info}>
           <span className={styles.infoKey}>From:</span>
-          <span className={styles.infoValue}>{otherUser.from}</span>
+          <span className={styles.infoValue}>{user.from}</span>
         </div>
         <div className={styles.info}>
           <span className={styles.infoKey}>Relationship:</span>
-          <span className={styles.infoValue}>{otherUser.relationship}</span>
+          <span className={styles.infoValue}>{user.relationship}</span>
         </div>
       </div>
       <h4 className={styles.title}>User Friends</h4>

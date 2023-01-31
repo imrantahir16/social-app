@@ -88,7 +88,8 @@ const getTimelinePost = async (req, res) => {
 const getUserPosts = async (req, res) => {
   try {
     const user = await Users.findOne({ username: req.params.username });
-    const post = await Post.findById({ userId: user._id });
+    const posts = await Post.find({ userId: user._id });
+    res.status(200).json(posts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

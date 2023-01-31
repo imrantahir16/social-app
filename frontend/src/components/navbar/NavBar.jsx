@@ -19,9 +19,11 @@ const NavBar = () => {
   // console.log(user);
   return (
     <div className={styles.container}>
-      <div className={styles.left}>
-        <span className={styles.logo}>Social App</span>
-      </div>
+      <Link to={"/"} style={{ textDecoration: "none" }}>
+        <div className={styles.left}>
+          <span className={styles.logo}>Social App</span>
+        </div>
+      </Link>
       <div className={styles.center}>
         <div className={styles.searchBar}>
           <Search className={styles.searchIcon} />

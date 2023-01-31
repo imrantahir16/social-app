@@ -45,7 +45,7 @@ const Post = ({ post }) => {
               <img
                 className={styles.profile}
                 src={
-                  user.profilePicture
+                  user?.profilePicture
                     ? `${PF}profiles/${user.profilePicture}`
                     : `${PF}profiles/noAvatar.jpg`
                 }
@@ -63,11 +63,13 @@ const Post = ({ post }) => {
         </div>
         <div className={styles.center}>
           <span className={styles.description}>{post?.description}</span>
-          <img
-            className={styles.postImage}
-            src={`${PF}post/${post?.image}`}
-            alt=""
-          />
+          {post?.image && (
+            <img
+              className={styles.postImage}
+              src={`${PF}post/${post?.image}`}
+              alt=""
+            />
+          )}
         </div>
         <div className={styles.bottom}>
           <div className={styles.bottomLeft}>

@@ -5,7 +5,7 @@ import Share from "../share/Share";
 import styles from "./feed.module.css";
 import { AuthContext } from "../../context/AuthContext";
 
-const Feed = ({ username }) => {
+const Feed = () => {
   const [posts, setPosts] = useState([]);
   const postRef = useRef(false);
   const { user } = useContext(AuthContext);
@@ -15,13 +15,8 @@ const Feed = ({ username }) => {
     if (postRef.current === true) {
       const fetchPosts = async () => {
         try {
-          console.log("feed");
-          console.log(username);
-          console.log(user);
-          const res = username
-            ? await axios.get(`post/profile/${username}`)
-            : await axios.get(`post/timeline/${user._id}`);
-          console.log(res.data);
+          const res = await axios.get(`post/timeline/${user._id}`);
+          // console.log(res.data);
           setPosts(
             res.data.sort((post1, post2) => {
               return new Date(post2.createdAt) - new Date(post1.createdAt);
@@ -37,11 +32,11 @@ const Feed = ({ username }) => {
     return () => {
       postRef.current = true;
     };
-  }, [user, username]);
+  }, [user]);
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        {(!username || username === user.username) && <Share />}
+        <Share />
         {posts.map((post) => (
           <Post key={post._id} post={post} />
         ))}
