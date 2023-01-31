@@ -64,10 +64,12 @@
 }
 .liked {
   fill: rgb(24, 119, 242);
+  color: rgb(24, 119, 242);
 }
 
 .unliked {
   fill: gray;
+  color: gray;
 }
 .likeCounter {
   font-size: 15px;

@@ -33,7 +33,7 @@ const Share = () => {
       try {
         await axios.post("/upload", data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     if (newPost.description || newPost.image)
@@ -41,7 +41,7 @@ const Share = () => {
         await axios.post("/post", newPost);
         window.location.reload();
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
   };
 

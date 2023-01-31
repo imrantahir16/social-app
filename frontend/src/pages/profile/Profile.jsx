@@ -27,7 +27,7 @@ const Profile = () => {
         // console.log(res.data);
         setUser(res.data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     fetchUsers();
@@ -48,7 +48,7 @@ const Profile = () => {
             })
           );
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       };
       fetchPosts();

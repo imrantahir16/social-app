@@ -6,7 +6,7 @@ import * as timeago from "timeago.js";
 import { Link } from "react-router-dom";
 const Post = ({ post }) => {
   const userRef = useRef(false);
-  const [like, setLike] = useState(post.likes.length);
+  const [like, setLike] = useState(false);
   const [isliked, setIsliked] = useState(false);
   const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -15,6 +15,10 @@ const Post = ({ post }) => {
     setLike(isliked ? like - 1 : like + 1);
     setIsliked((prev) => !prev);
   };
+
+  useEffect(() => {
+    setLike(post.likes.length);
+  }, [post]);
 
   useEffect(() => {
     // console.log("post");
@@ -26,7 +30,7 @@ const Post = ({ post }) => {
           // console.log(res.data);
           setUser(res.data);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       };
       fetchUsers();

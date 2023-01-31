@@ -1,11 +1,13 @@
 import { Chat, Notifications, Search, Person } from "@mui/icons-material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, redirect } from "react-router-dom";
 import styles from "./navBar.module.css";
 import { AuthContext } from "../../context/AuthContext";
 
 const NavBar = () => {
   const { user } = useContext(AuthContext);
+  const [searchInput, setSearchInput] = useState("");
+
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const logoutHandler = () => {
@@ -13,6 +15,13 @@ const NavBar = () => {
     if (localStorage.getItem("user") === "") {
       redirect("/login");
       window.location.reload();
+    }
+  };
+
+  const searchInputHandler = async () => {
+    try {
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -25,13 +34,15 @@ const NavBar = () => {
         </div>
       </Link>
       <div className={styles.center}>
-        <div className={styles.searchBar}>
+        <form className={styles.searchBar}>
           <Search className={styles.searchIcon} />
           <input
             className={styles.input}
-            placeholder="Search friends or post"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="Search friends"
           />
-        </div>
+        </form>
       </div>
       <div className={styles.right}>
         <div className={styles.Links}>

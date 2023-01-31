@@ -29,7 +29,7 @@ const LeftSideBar = () => {
         // console.log(friendList.data);
         setFriends(friendList.data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     getFriends();

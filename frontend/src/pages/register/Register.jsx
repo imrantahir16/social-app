@@ -25,7 +25,7 @@ const Register = () => {
       await axios.post("/auth/register", user);
       navigate("/login");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (

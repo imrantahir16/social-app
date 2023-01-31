@@ -19,7 +19,7 @@ const HomeRightBar = () => {
         setFriends(friendList.data);
       } catch (error) {
         console.log("START");
-        console.log(error);
+        console.error(error);
         console.log("END");
       }
     };

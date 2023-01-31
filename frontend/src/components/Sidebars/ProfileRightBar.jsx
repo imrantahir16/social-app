@@ -27,7 +27,7 @@ const ProfileRightBar = ({ user }) => {
       }
       setFollowed((prev) => !prev);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -38,7 +38,7 @@ const ProfileRightBar = ({ user }) => {
           const friendList = await axios.get("/user/friend/" + user?._id);
           setFriends(friendList.data);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       };
       getFriends();
