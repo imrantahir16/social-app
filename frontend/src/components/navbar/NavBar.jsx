@@ -63,33 +63,37 @@ const NavBar = () => {
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search friends"
             onFocus={() => setSearchFocus(true)}
+            onBlur={() => setTimeout(() => setSearchFocus(false), 400)}
           />
         </form>
         {searchFocus && (
           <ul className={styles.searchedContainer}>
-            {searchList.map((item, index) => {
-              return (
-                <Link
-                  to={`/profile/${item.username}`}
-                  key={`searched${index}_${item._id}`}
-                  className={styles.searchItem}
-                  onClick={() => setSearchFocus(false)}
-                >
-                  <img
-                    className={styles.profile}
-                    src={
-                      item?.profilePicture
-                        ? `${PF}/profiles/${item.profilePicture}`
-                        : `${PF}profiles/noAvatar.png`
-                    }
-                    alt={`${item.usename} profile`}
-                  />
-                  <span style={{ backgroundColor: "palegreen" }}>
-                    {item.username}
-                  </span>
-                </Link>
-              );
-            })}
+            {!searchList.length && (
+              <span className={styles.emptyList}>No result found</span>
+            )}
+            {searchList &&
+              searchList.map((item, index) => {
+                return (
+                  <Link
+                    to={`/profile/${item.username}`}
+                    key={`searched${index}_${item._id}`}
+                    className={styles.searchItem}
+                  >
+                    <img
+                      className={styles.profile}
+                      src={
+                        item?.profilePicture
+                          ? `${PF}/profiles/${item.profilePicture}`
+                          : `${PF}profiles/noAvatar.png`
+                      }
+                      alt={`${item.usename} profile`}
+                    />
+                    <span style={{ backgroundColor: "palegreen" }}>
+                      {item.username}
+                    </span>
+                  </Link>
+                );
+              })}
           </ul>
         )}
       </div>

@@ -58,7 +58,7 @@ const Post = ({ post }) => {
                 src={
                   user?.profilePicture
                     ? `${PF}profiles/${user.profilePicture}`
-                    : `${PF}profiles/noAvatar.jpg`
+                    : `${PF}profiles/noAvatar.png`
                 }
                 alt={`${user.username}'s profile`}
               />

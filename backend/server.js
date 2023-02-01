@@ -19,6 +19,7 @@ connectDB();
 // cors
 app.use(cors(corsOption));
 // static file
+app.use("/", express.static(path.join(__dirname, "/public")));
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 // buit-in middleware

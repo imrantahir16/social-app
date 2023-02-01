@@ -65,6 +65,9 @@
   -moz-box-shadow: 3px 7px 9px 1px rgba(0, 0, 0, 0.3);
 }
 
+.emptyList {
+  text-align: center;
+}
 .searchItem {
   /* padding-block: 10px; */
   display: flex;
