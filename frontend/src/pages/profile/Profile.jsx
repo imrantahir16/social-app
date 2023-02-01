@@ -3,7 +3,6 @@ import axios from "../../api/axios";
 import styles from "./profile.module.css";
 import NavBar from "../../components/navbar/NavBar";
 import LeftSideBar from "../../components/Sidebars/LeftSideBar";
-import Feed from "../../components/feed/Feed";
 import RightSideBar from "../../components/Sidebars/RightSideBar";
 import { useParams } from "react-router";
 import Post from "../../components/posts/Post";
@@ -15,22 +14,28 @@ const Profile = () => {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const postRef = useRef(false);
-  const username = useParams().username;
+  const userRef = useRef(false);
+  const { username } = useParams();
   const { user: currentUser } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axios.get(`/user/?username=${username}`);
-        // console.log("username");
-        // console.log(res.data);
-        setUser(res.data);
-      } catch (error) {
-        console.error(error);
-      }
+    if (userRef.current === true) {
+      const fetchUsers = async () => {
+        try {
+          const res = await axios.get(`/user/?username=${username}`);
+          // console.log("username");
+          // console.log(res.data);
+          setUser(res.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchUsers();
+    }
+    return () => {
+      userRef.current = true;
     };
-    fetchUsers();
   }, [username]);
 
   useEffect(() => {
@@ -96,6 +101,7 @@ const Profile = () => {
             <div className={styles.container}>
               <div className={styles.wrapper}>
                 {currentUser.username === user.username && <Share />}
+                {posts.length < 1 && <p>Not posted yet</p>}
                 {posts.map((post) => (
                   <Post key={post._id} post={post} />
                 ))}

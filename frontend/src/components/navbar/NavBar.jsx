@@ -1,13 +1,22 @@
-import { Chat, Notifications, Search, Person } from "@mui/icons-material";
-import { useContext, useState } from "react";
+import {
+  Chat,
+  Notifications,
+  Search,
+  Person,
+  Logout,
+} from "@mui/icons-material";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Link, redirect } from "react-router-dom";
 import styles from "./navBar.module.css";
 import { AuthContext } from "../../context/AuthContext";
+import axios from "../../api/axios";
 
 const NavBar = () => {
   const { user } = useContext(AuthContext);
   const [searchInput, setSearchInput] = useState("");
-
+  const [searchRes, setSearchRes] = useState([]);
+  const [searchList, setSearchList] = useState([]);
+  const [searchFocus, setSearchFocus] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const logoutHandler = () => {
@@ -18,12 +27,24 @@ const NavBar = () => {
     }
   };
 
-  const searchInputHandler = async () => {
-    try {
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const searchInputHandler = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const res = await axios.post(`user/search/${user._id}`, {
+          name: searchInput,
+        });
+        setSearchRes(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [searchInput, user]
+  );
+
+  useEffect(() => {
+    setSearchList(searchRes);
+  }, [searchRes]);
 
   // console.log(user);
   return (
@@ -34,15 +55,43 @@ const NavBar = () => {
         </div>
       </Link>
       <div className={styles.center}>
-        <form className={styles.searchBar}>
+        <form className={styles.searchBar} onSubmit={searchInputHandler}>
           <Search className={styles.searchIcon} />
           <input
             className={styles.input}
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search friends"
+            onFocus={() => setSearchFocus(true)}
           />
         </form>
+        {searchFocus && (
+          <ul className={styles.searchedContainer}>
+            {searchList.map((item, index) => {
+              return (
+                <Link
+                  to={`/profile/${item.username}`}
+                  key={`searched${index}_${item._id}`}
+                  className={styles.searchItem}
+                  onClick={() => setSearchFocus(false)}
+                >
+                  <img
+                    className={styles.profile}
+                    src={
+                      item?.profilePicture
+                        ? `${PF}/profiles/${item.profilePicture}`
+                        : `${PF}profiles/noAvatar.png`
+                    }
+                    alt={`${item.usename} profile`}
+                  />
+                  <span style={{ backgroundColor: "palegreen" }}>
+                    {item.username}
+                  </span>
+                </Link>
+              );
+            })}
+          </ul>
+        )}
       </div>
       <div className={styles.right}>
         <div className={styles.Links}>
@@ -70,7 +119,7 @@ const NavBar = () => {
         <Link to={`/profile/${user.username}`}>
           <img
             src={
-              user.profilePicture
+              user?.profilePicture
                 ? `${PF}profiles/${user.profilePicture}`
                 : `${PF}profiles/noAvatar.png`
             }
@@ -78,7 +127,9 @@ const NavBar = () => {
             className={styles.profile}
           />
         </Link>
-        <button onClick={logoutHandler}>Log out</button>
+        <Logout className={styles.logoutButton} onClick={logoutHandler}>
+          Log out
+        </Logout>
       </div>
     </div>
   );

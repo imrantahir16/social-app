@@ -120,6 +120,33 @@ const unfollowUser = async (req, res) => {
   }
 };
 
+// todo commplete this route
+const searchUsers = async (req, res) => {
+  const { name } = req.body;
+  const { userId } = req.params;
+  console.log(userId);
+  if (!name) return res.status(403).json({ message: "name are required" });
+  try {
+    const users = await User.find();
+    const excludingUser = users.filter((user) => {
+      return userId !== user._id.toString();
+    });
+    const filteredUsers = excludingUser.filter((user) =>
+      user.username.includes(name)
+    );
+    const foundUsers = filteredUsers.map((user) => {
+      return {
+        userId: user._id,
+        username: user.username,
+        profilePicture: user.profilePicture,
+      };
+    });
+    res.status(200).json(foundUsers);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   getUser,
   deleteUser,
@@ -127,4 +154,5 @@ module.exports = {
   followUser,
   unfollowUser,
   getFriends,
+  searchUsers,
 };

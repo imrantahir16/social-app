@@ -33,7 +33,7 @@ const LeftSideBar = () => {
       }
     };
     getFriends();
-  }, [user._id]);
+  }, [user]);
 
   return (
     <div className={styles.container}>

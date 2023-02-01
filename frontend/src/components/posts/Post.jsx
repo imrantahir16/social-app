@@ -4,30 +4,38 @@ import { ThumbUp, MoreVert } from "@mui/icons-material";
 import axios from "../../api/axios";
 import * as timeago from "timeago.js";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 const Post = ({ post }) => {
   const userRef = useRef(false);
   const [like, setLike] = useState(false);
   const [isliked, setIsliked] = useState(false);
   const [user, setUser] = useState({});
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { user: currentUser } = useContext(AuthContext);
 
-  const likeHandler = () => {
+  const likeHandler = async () => {
+    try {
+      await axios.put(`post/${post._id}/like`, { userId: currentUser._id });
+    } catch (error) {}
     setLike(isliked ? like - 1 : like + 1);
     setIsliked((prev) => !prev);
   };
+
+  useEffect(() => {
+    setIsliked(post.likes.includes(currentUser._id));
+  }, [currentUser._id, post.likes]);
 
   useEffect(() => {
     setLike(post.likes.length);
   }, [post]);
 
   useEffect(() => {
-    // console.log("post");
-    // console.log(post);
     if (userRef.current === true) {
       const fetchUsers = async () => {
         try {
           const res = await axios.get(`/user?userId=${post.userId}`);
-          // console.log(res.data);
           setUser(res.data);
         } catch (error) {
           console.error(error);
@@ -35,7 +43,6 @@ const Post = ({ post }) => {
       };
       fetchUsers();
     }
-
     return () => {
       userRef.current = true;
     };

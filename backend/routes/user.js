@@ -6,6 +6,7 @@ const {
   followUser,
   unfollowUser,
   getFriends,
+  searchUsers,
 } = require("../controllers/userController");
 
 router.get("/", getUser);
@@ -14,5 +15,6 @@ router.delete("/:id", deleteUser);
 router.put("/:id/follow", followUser);
 router.put("/:id/unfollow", unfollowUser);
 router.get("/friend/:userId", getFriends);
+router.post("/search/:userId", searchUsers);
 
 module.exports = router;

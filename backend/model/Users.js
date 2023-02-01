@@ -61,7 +61,14 @@ const userSchema = new Schema(
       enum: [1, 2, 3],
     },
   },
-  { timestamps: true }
+  { timestamps: true },
+  {
+    query: {
+      byName(name) {
+        return this.where({ name: new RegExp(name, "i") });
+      },
+    },
+  }
 );
 
 module.exports = mongoose.model("User", userSchema);
