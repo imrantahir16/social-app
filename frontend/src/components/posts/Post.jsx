@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { ThumbUp, MoreVert } from "@mui/icons-material";
 import axios from "../../api/axios";
 import * as timeago from "timeago.js";
+import TimeAgo from "timeago-react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
