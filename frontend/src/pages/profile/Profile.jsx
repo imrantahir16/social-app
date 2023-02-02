@@ -13,14 +13,11 @@ import Share from "../../components/share/Share";
 const Profile = () => {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
-  const postRef = useRef(false);
-  const userRef = useRef(false);
   const { username } = useParams();
   const { user: currentUser } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
-    if (userRef.current === true) {
       const fetchUsers = async () => {
         try {
           const res = await axios.get(`/user/?username=${username}`);
@@ -32,14 +29,10 @@ const Profile = () => {
         }
       };
       fetchUsers();
-    }
-    return () => {
-      userRef.current = true;
-    };
+   
   }, [username]);
 
   useEffect(() => {
-    if (postRef.current === true) {
       const fetchPosts = async () => {
         try {
           // console.log("feed");
@@ -57,11 +50,7 @@ const Profile = () => {
         }
       };
       fetchPosts();
-    }
-
-    return () => {
-      postRef.current = true;
-    };
+    
   }, [username]);
 
   return (

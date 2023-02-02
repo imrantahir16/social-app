@@ -7,7 +7,6 @@ import { AuthContext } from "../../context/AuthContext";
 
 const ProfileRightBar = ({ user }) => {
   const [friends, setFriends] = useState([]);
-  const friendRef = useRef(false);
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -32,7 +31,6 @@ const ProfileRightBar = ({ user }) => {
   };
 
   useEffect(() => {
-    if (friendRef.current === true) {
       const getFriends = async () => {
         try {
           const friendList = await axios.get("/user/friend/" + user?._id);
@@ -42,10 +40,7 @@ const ProfileRightBar = ({ user }) => {
         }
       };
       getFriends();
-    }
-    return () => {
-      friendRef.current = true;
-    };
+    
   }, [user]);
 
   useEffect(() => {

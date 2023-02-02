@@ -8,7 +8,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const Post = ({ post }) => {
-  const userRef = useRef(false);
   const [like, setLike] = useState(false);
   const [isliked, setIsliked] = useState(false);
   const [user, setUser] = useState({});
@@ -32,20 +31,15 @@ const Post = ({ post }) => {
   }, [post]);
 
   useEffect(() => {
-    if (userRef.current === true) {
-      const fetchUsers = async () => {
-        try {
-          const res = await axios.get(`/user?userId=${post.userId}`);
-          setUser(res.data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchUsers();
-    }
-    return () => {
-      userRef.current = true;
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get(`/user?userId=${post.userId}`);
+        setUser(res.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
+    fetchUsers();
   }, [post.userId]);
   return (
     <div className={styles.container}>
