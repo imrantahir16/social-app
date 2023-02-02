@@ -1,9 +1,8 @@
-// import { Users } from "../../utils/DummyData";
 import { useContext, useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { AuthContext } from "../../context/AuthContext";
 import Online from "../online/Online";
-import styles from "./homeRightBar.module.css";
+import styles from "./homerightbar.module.css";
 const HomeRightBar = () => {
   const [friends, setFriends] = useState([]);
   const { user } = useContext(AuthContext);

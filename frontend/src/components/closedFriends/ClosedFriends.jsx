@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./closedFriends.module.css";
+import styles from "./closedfriends.module.css";
 
 const ClosedFriends = ({ friend }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;

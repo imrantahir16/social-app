@@ -1,4 +1,4 @@
-import styles from "./profileRightBar.module.css";
+import styles from "./profilerightbar.module.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";

@@ -13,7 +13,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { AuthContext } from "../../context/AuthContext";
 import ClosedFriends from "../closedFriends/ClosedFriends";
-import styles from "./leftSideBar.module.css";
+import styles from "./leftsidebar.module.css";
 
 const LeftSideBar = () => {
   const { user } = useContext(AuthContext);

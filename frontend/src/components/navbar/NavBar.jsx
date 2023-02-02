@@ -7,7 +7,7 @@ import {
 } from "@mui/icons-material";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { Link, redirect } from "react-router-dom";
-import styles from "./navBar.module.css";
+import styles from "./navbar.module.css";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "../../api/axios";
 
