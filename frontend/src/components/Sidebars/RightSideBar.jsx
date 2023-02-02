@@ -1,6 +1,6 @@
 import HomeRightBar from "./HomeRightBar";
 import ProfileRightBar from "./ProfileRightBar";
-import styles from "./rightsidebar.module.css";
+import styles from "./rightSideBar.module.css";
 
 const RightSideBar = ({ user }) => {
   return (

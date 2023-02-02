@@ -1,0 +1,8 @@
+.container {
+  flex: 3.5;
+}
+
+.wrapper {
+  padding-top: 20px;
+  padding-right: 20px;
+}
