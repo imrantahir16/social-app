@@ -1,0 +1,54 @@
+.container {
+  flex: 3;
+  height: calc(100vh - 50px);
+  position: sticky;
+  overflow-y: scroll;
+  top: 50px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(179, 179, 179);
+  border-radius: 50px;
+}
+
+.wrapper {
+  padding: 20px;
+}
+
+.lists {
+  list-style: none;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.icon {
+  margin-right: 1rem;
+}
+
+.button {
+  width: 150px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.hr {
+  margin-block: 20px;
+}
+
+.friendsList {
+  list-style: none;
+}

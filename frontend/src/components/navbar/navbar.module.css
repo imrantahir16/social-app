@@ -1,0 +1,140 @@
+.container {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: rgb(24, 119, 242);
+  padding-inline: 2rem;
+  z-index: 9;
+}
+
+.left {
+  flex: 3;
+}
+
+.logo {
+  font-size: 2rem;
+  margin-inline: 10px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.center {
+  flex: 5;
+  position: relative;
+}
+
+.searchBar {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  height: 30px;
+  border-radius: 30px;
+  align-items: center;
+}
+.searchIcon {
+  font-size: 20px !important;
+  margin-left: 10px;
+}
+
+.input {
+  margin-left: 10px;
+  width: 70%;
+  border: none;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.searchedContainer {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  border-radius: 5px;
+  min-height: 20px;
+  background-color: white;
+  min-width: 100%;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 5px;
+  box-shadow: 3px 7px 9px 1px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 3px 7px 9px 1px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 3px 7px 9px 1px rgba(0, 0, 0, 0.3);
+}
+
+.emptyList {
+  text-align: center;
+}
+.searchItem {
+  /* padding-block: 10px; */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgb(0, 0, 0);
+}
+
+.searchItem:hover,
+.searchItem:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  cursor: pointer;
+}
+
+.right {
+  flex: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgb(255, 255, 255);
+}
+
+.link {
+  margin-left: 10px;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+.icons {
+  display: flex;
+  gap: 15px;
+}
+
+.icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.iconBadge {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(247, 75, 75);
+  border-radius: 50%;
+  color: white;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.profile {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.logoutButton {
+  cursor: pointer;
+}
