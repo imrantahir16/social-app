@@ -1,5 +1,5 @@
 import styles from "./profileRightBar.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -31,16 +31,15 @@ const ProfileRightBar = ({ user }) => {
   };
 
   useEffect(() => {
-      const getFriends = async () => {
-        try {
-          const friendList = await axios.get("/user/friend/" + user?._id);
-          setFriends(friendList.data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      getFriends();
-    
+    const getFriends = async () => {
+      try {
+        const friendList = await axios.get("/user/friend/" + user?._id);
+        setFriends(friendList.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getFriends();
   }, [user]);
 
   useEffect(() => {

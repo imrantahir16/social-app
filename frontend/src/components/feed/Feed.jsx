@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "../../api/axios";
 import Post from "../posts/Post";
 import Share from "../share/Share";

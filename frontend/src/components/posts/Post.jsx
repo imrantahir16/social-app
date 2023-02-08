@@ -1,5 +1,5 @@
 import styles from "./post.module.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { ThumbUp, MoreVert } from "@mui/icons-material";
 import axios from "../../api/axios";
 import * as timeago from "timeago.js";

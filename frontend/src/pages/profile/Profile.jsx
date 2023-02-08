@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import styles from "./profile.module.css";
 import NavBar from "../../components/navbar/NavBar";
@@ -18,39 +18,37 @@ const Profile = () => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
-      const fetchUsers = async () => {
-        try {
-          const res = await axios.get(`/user/?username=${username}`);
-          // console.log("username");
-          // console.log(res.data);
-          setUser(res.data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchUsers();
-   
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get(`/user/?username=${username}`);
+        // console.log("username");
+        // console.log(res.data);
+        setUser(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUsers();
   }, [username]);
 
   useEffect(() => {
-      const fetchPosts = async () => {
-        try {
-          // console.log("feed");
-          // console.log(username);
-          const res = await axios.get(`post/profile/${username}`);
-          // console.log("post by username");
-          // console.log(res.data);
-          setPosts(
-            res.data.sort((post1, post2) => {
-              return new Date(post2.createdAt) - new Date(post1.createdAt);
-            })
-          );
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchPosts();
-    
+    const fetchPosts = async () => {
+      try {
+        // console.log("feed");
+        // console.log(username);
+        const res = await axios.get(`post/profile/${username}`);
+        // console.log("post by username");
+        // console.log(res.data);
+        setPosts(
+          res.data.sort((post1, post2) => {
+            return new Date(post2.createdAt) - new Date(post1.createdAt);
+          })
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPosts();
   }, [username]);
 
   return (
