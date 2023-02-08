@@ -8,13 +8,31 @@ const morgan = require("morgan");
 const multer = require("multer");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/errorMiddleware");
+const socketIO = require("socket.io");
+const http = require("http");
+const {
+  users,
+  addUser,
+  removeUser,
+  getUser,
+} = require("./utils/socketFunctions");
 require("dotenv").config();
 require("colors");
 
-const PORT = process.env.PORT || 5000;
-
 const app = express();
 connectDB();
+
+const server = http.createServer(app);
+const io = socketIO(server, {
+  cors: {
+    origin: [
+      "https://social-app-bice.vercel.app/",
+      "http://localhost:8080/",
+      "http://localhost:3000/",
+    ],
+  },
+});
+const PORT = process.env.PORT || 5000;
 
 // cors
 app.use(cors(corsOption));
@@ -44,6 +62,8 @@ const upload = multer({ storage });
 app.use("/auth", require("./routes/auth"));
 app.use("/post", require("./routes/post"));
 app.use("/user", require("./routes/user"));
+app.use("/messages", require("./routes/message"));
+app.use("/conversations", require("./routes/conversation"));
 
 app.use("/upload", upload.single("file"), (req, res) => {
   try {
@@ -53,12 +73,36 @@ app.use("/upload", upload.single("file"), (req, res) => {
   }
 });
 
+// socket io events
+io.on("connection", (socket) => {
+  console.log(`connected`);
+
+  socket.on("addUser", (userId) => {
+    addUser(userId, socket.id);
+    io.emit("getUsers", users);
+  });
+
+  socket.on("sendMessage", (senderId, recieverId, text) => {
+    const user = getUser(recieverId);
+    io.to(user.socketId).emit("getMessage", {
+      senderId,
+      text,
+    });
+  });
+
+  socket.on("disconnect", () => {
+    console.log("socket disconnected");
+    removeUser(socket.id);
+    io.emit("getUsers", users);
+  });
+});
+
 // errorMiddleware
 app.use(errorHandler);
 // checking database connected and server running
 mongoose.connection.once("open", () => {
   console.log("Database connected".green.underline);
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`.cyan.underline);
   });
 });
