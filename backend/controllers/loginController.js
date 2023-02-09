@@ -12,7 +12,7 @@ const loginUser = async (req, res) => {
     !foundUser && res.status(404).json({ message: "User not found" });
 
     const match = await bcrypt.compare(password, foundUser.password);
-    !match && res.status(400).json("Incorrect password");
+    !match && res.status(400).json({ message: "Incorrect password" });
     foundUser.online = true;
     res.status(200).json(foundUser);
   } catch (error) {

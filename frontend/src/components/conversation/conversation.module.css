@@ -4,6 +4,7 @@
   padding: 10px;
   cursor: pointer;
   margin-top: 20px;
+  gap: 1rem;
   transition: background-color 200ms ease-in-out;
 }
 
@@ -16,7 +17,6 @@
   aspect-ratio: 1/1;
   border-radius: 50%;
   object-fit: cover;
-  margin-top: 20px;
 }
 
 .name {

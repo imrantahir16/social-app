@@ -18,9 +18,10 @@ const Messenger = () => {
   const { user } = useContext(AuthContext);
   const socket = useRef();
   const scrollRef = useRef();
+  const SOCKET_URI = process.env.REACT_APP_SOCKET_URI;
 
   useEffect(() => {
-    socket.current = io("ws:localhost:8080");
+    socket.current = io(SOCKET_URI);
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -49,9 +50,12 @@ const Messenger = () => {
 
   useEffect(() => {
     const getConversations = async () => {
+      console.log(user._id);
+
       try {
         const res = await axios.get(`/conversations/${user._id}`);
-        setConversations(res.data);
+        setConversations(res.data.conversation);
+        // console.log(res.data.conversation);
       } catch (error) {
         console.log(error);
       }
@@ -87,6 +91,7 @@ const Messenger = () => {
     const recieverId = currentChat.members.find(
       (member) => member !== user._id
     );
+    console.log(recieverId);
     socket.current.emit("sendMessage", {
       senderId: user._id,
       recieverId,
@@ -127,7 +132,7 @@ const Messenger = () => {
               <>
                 <div className={styles.chatBoxTop}>
                   {messages.map((msg) => (
-                    <div ref={scrollRef}>
+                    <div key={msg._id} ref={scrollRef}>
                       <Message message={msg} own={msg.sender === user._id} />
                     </div>
                   ))}

@@ -112,8 +112,13 @@ const NavBar = () => {
             <span className={styles.iconBadge}>1</span>
           </div>
           <div className={styles.icon}>
-            <Chat />
-            <span className={styles.iconBadge}>1</span>
+            <Link
+              to={"/messenger"}
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              <Chat />
+              <span className={styles.iconBadge}>1</span>
+            </Link>
           </div>
           <div className={styles.icon}>
             <Notifications />

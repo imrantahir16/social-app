@@ -37,9 +37,10 @@ const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {
     }
   };
   return (
-    <div>
+    <>
       {onlineFriends.map((onlineFriend) => (
         <div
+          key={onlineFriend._id}
           className={styles.onlineFriend}
           onClick={() => clickHandler(onlineFriend)}
         >
@@ -57,7 +58,7 @@ const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {
           <span>{onlineFriend.username}</span>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 export default ChatOnline;

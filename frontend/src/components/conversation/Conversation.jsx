@@ -14,14 +14,15 @@ const Conversation = ({ conversation, currentUser }) => {
 
     const getUser = async () => {
       try {
-        const res = await axios.get(`/user?userId=${friendId}`);
+        const res = await axios.get(`/user/?userId=${friendId}`);
         setUser(res.data);
+        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
     };
     getUser();
-  }, [conversation, currentUser]);
+  }, [conversation, currentUser._id]);
 
   return (
     <div className={styles.conversation}>
@@ -34,7 +35,7 @@ const Conversation = ({ conversation, currentUser }) => {
         }
         alt="user profile"
       />
-      <span className={styles.name}>{user.username}</span>
+      <span className={styles.name}>{user?.username}</span>
     </div>
   );
 };

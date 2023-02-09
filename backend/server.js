@@ -21,21 +21,17 @@ require("colors");
 
 const app = express();
 connectDB();
+// cors
+app.use(cors(corsOption));
 
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: [
-      "https://social-app-bice.vercel.app/",
-      "http://localhost:8080/",
-      "http://localhost:3000/",
-    ],
+    origin: "*",
   },
 });
 const PORT = process.env.PORT || 5000;
 
-// cors
-app.use(cors(corsOption));
 // static file
 app.use("/", express.static(path.join(__dirname, "/public")));
 app.use("/images", express.static(path.join(__dirname, "public/images")));
@@ -82,8 +78,9 @@ io.on("connection", (socket) => {
     io.emit("getUsers", users);
   });
 
-  socket.on("sendMessage", (senderId, recieverId, text) => {
+  socket.on("sendMessage", ({ senderId, recieverId, text }) => {
     const user = getUser(recieverId);
+    console.log(user);
     io.to(user.socketId).emit("getMessage", {
       senderId,
       text,
