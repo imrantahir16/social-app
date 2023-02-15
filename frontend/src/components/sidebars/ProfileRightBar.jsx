@@ -33,7 +33,7 @@ const ProfileRightBar = ({ user }) => {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendList = await axios.get("/user/friend/" + user?._id);
+        const friendList = await axios.get(`/user/friend/${user?._id}`);
         setFriends(friendList.data);
       } catch (error) {
         console.error(error);

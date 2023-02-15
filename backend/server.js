@@ -16,12 +16,14 @@ const {
   removeUser,
   getUser,
 } = require("./utils/socketFunctions");
+const origin = require("./middleware/origins");
 require("dotenv").config();
 require("colors");
 
 const app = express();
 connectDB();
 // cors
+app.use(origin);
 app.use(cors(corsOption));
 
 const server = http.createServer(app);
@@ -41,7 +43,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(helmet());
-app.use(morgan("common"));
+app.use(morgan("dev"));
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -77,11 +79,12 @@ io.on("connection", (socket) => {
     addUser(userId, socket.id);
     io.emit("getUsers", users);
   });
+  console.log("ws user array", users);
 
   socket.on("sendMessage", ({ senderId, recieverId, text }) => {
     const user = getUser(recieverId);
-    console.log(user);
-    io.to(user.socketId).emit("getMessage", {
+    // console.log("recieving user :", user);
+    io.to(user?.socketId).emit("getMessage", {
       senderId,
       text,
     });

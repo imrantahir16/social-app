@@ -1,0 +1,28 @@
+.dev {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(155, 248, 155);
+  gap: 1rem;
+  padding-block: 0.5rem;
+}
+
+.description {
+  font-weight: 500;
+}
+
+.button {
+  padding: 0.8rem 1.6rem;
+  border-radius: 10px;
+  background-color: dodgerblue;
+  outline: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 200ms ease-in;
+}
+
+.button:hover,
+.button:focus {
+  transform: scale(1.05);
+  background-color: rgb(10, 132, 253);
+}

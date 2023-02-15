@@ -16,7 +16,7 @@ const Conversation = ({ conversation, currentUser }) => {
       try {
         const res = await axios.get(`/user/?userId=${friendId}`);
         setUser(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.error(error);
       }

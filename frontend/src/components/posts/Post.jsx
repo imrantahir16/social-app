@@ -33,7 +33,7 @@ const Post = ({ post }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get(`/user?userId=${post.userId}`);
+        const res = await axios.get(`/user/?userId=${post.userId}`);
         setUser(res.data);
       } catch (error) {
         console.error(error);

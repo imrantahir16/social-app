@@ -13,7 +13,7 @@ const Messenger = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [arrivalMessage, setArrivalMessage] = useState("");
+  const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const { user } = useContext(AuthContext);
   const socket = useRef();
@@ -29,7 +29,7 @@ const Messenger = () => {
         createdAt: Date.now(),
       });
     });
-  }, []);
+  }, [SOCKET_URI]);
 
   useEffect(() => {
     arrivalMessage &&
@@ -40,14 +40,15 @@ const Messenger = () => {
   useEffect(() => {
     socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
+      console.log(users);
       setOnlineUsers(
         user.followings.filter((friend) =>
-          users.some((user) => user.userId === friend)
+          users.some((u) => u.userId === friend)
         )
       );
     });
   }, [user]);
-
+  console.log(onlineUsers);
   useEffect(() => {
     const getConversations = async () => {
       console.log(user._id);
@@ -55,7 +56,7 @@ const Messenger = () => {
       try {
         const res = await axios.get(`/conversations/${user._id}`);
         setConversations(res.data.conversation);
-        // console.log(res.data.conversation);
+        // console.log(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -65,11 +66,13 @@ const Messenger = () => {
 
   useEffect(() => {
     const getMessages = async () => {
-      try {
-        const res = await axios.get(`/messages/${currentChat?._id}`);
-        setMessages(res.data);
-      } catch (error) {
-        console.log(error);
+      if (currentChat) {
+        try {
+          const res = await axios.get(`/messages/${currentChat?._id}`);
+          setMessages(res.data);
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
     getMessages();
@@ -87,11 +90,13 @@ const Messenger = () => {
       text: newMessage,
       conversationId: currentChat?._id,
     };
+    console.log(currentChat.members);
 
     const recieverId = currentChat.members.find(
       (member) => member !== user._id
     );
     console.log(recieverId);
+    console.log(user._id);
     socket.current.emit("sendMessage", {
       senderId: user._id,
       recieverId,
@@ -116,9 +121,9 @@ const Messenger = () => {
               className={styles.chatMenuInput}
               placeholder="search for friends"
             />
-            {conversations.map((conversation) => (
+            {conversations.map((conversation, i) => (
               <div
-                key={conversation._id}
+                key={`conversation_${i}_${conversation._id}`}
                 onClick={() => setCurrentChat(conversation)}
               >
                 <Conversation conversation={conversation} currentUser={user} />
@@ -131,8 +136,8 @@ const Messenger = () => {
             {currentChat ? (
               <>
                 <div className={styles.chatBoxTop}>
-                  {messages.map((msg) => (
-                    <div key={msg._id} ref={scrollRef}>
+                  {messages.map((msg, i) => (
+                    <div key={`message_${i}_${msg._id}`} ref={scrollRef}>
                       <Message message={msg} own={msg.sender === user._id} />
                     </div>
                   ))}

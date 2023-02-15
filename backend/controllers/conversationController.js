@@ -26,9 +26,19 @@ const getConversation = async (req, res) => {
 
 const getConversationTwoUser = async (req, res) => {
   try {
-    const conversation = await Conversation.findOne({
+    let conversation = await Conversation.findOne({
       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
     });
+    if (!conversation) {
+      const newConversation = Conversation({
+        members: [req.params.firstUserId, req.params.secondUserId],
+      });
+      try {
+        conversation = newConversation.save();
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    }
     res.status(200).json(conversation);
   } catch (error) {
     res.status(500).json({ error: error.message });

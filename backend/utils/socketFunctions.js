@@ -3,7 +3,7 @@ let users = [];
 const addUser = (userId, socketId) => {
   !users.some((user) => user.userId === userId) &&
     users.push({ userId, socketId });
-  console.log(users);
+  console.log("socketfuntion users", users);
 };
 
 const removeUser = (socketId) => {

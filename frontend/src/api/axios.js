@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "https://social-app-production-418c.up.railway.app/";
-// export const BASE_URL = "http://localhost:8080/";
+export const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default axios.create({
   baseURL: BASE_URL,
